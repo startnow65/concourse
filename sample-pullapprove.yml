@@ -1,0 +1,72 @@
+version: 3
+approve_by_comment: true
+approve_regex: ^(Approved|\+1|:\+1:|:shipit:)
+author_approval: ignored
+reject_regex: ^(Rejected|\-1|:\-1:)
+reject_value: -1
+reset_on_push: true
+reviewers:
+- name: devs
+  required: 1
+  teams:
+  - devs
+- conditions:
+    branches:
+    - master
+    files:
+    - '*.php'
+    - '*.js'
+    - '*.swift'
+    - '*.java'
+    - '*.py'
+    - '*.go'
+    - '*.yml'
+  name: pm
+  required: 1
+  teams:
+  - pm
+- conditions:
+    branches:
+    - master
+    files:
+    - '*.php'
+    - '*.js'
+    - '*.swift'
+    - '*.java'
+    - '*.py'
+    - '*.go'
+    - '*.yml'
+    labels:
+      exclude:
+      - dev_qa
+  name: qa
+  required: 1
+  teams:
+  - qa
+- conditions:
+    branches:
+    - master
+    files:
+    - '*.php'
+    - '*.js'
+    - '*.swift'
+    - '*.java'
+    - '*.py'
+    - '*.go'
+    - '*.yml'
+    labels:
+      include:
+      - dev_qa
+  name: dev_qa
+  required: 2
+  teams:
+  - devs
+- conditions:
+    branches:
+    - master
+    files:
+    - .pullapprove.yml
+  members:
+  - startnow65
+  name: access
+  required: 1
